@@ -23,7 +23,7 @@ type metricValue struct {
 func (m *metricValue) init() {
 	m.data.SetName("value")
 	m.data.SetDescription("test value")
-	m.data.SetUnit("s")
+	m.data.SetUnit("{values}")
 	m.data.SetEmptySum()
 	m.data.Sum().SetIsMonotonic(true)
 	m.data.Sum().SetAggregationTemporality(pmetric.AggregationTemporalityCumulative)

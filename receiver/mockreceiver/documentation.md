@@ -18,7 +18,7 @@ test value
 
 | Unit | Metric Type | Value Type | Aggregation Temporality | Monotonic |
 | ---- | ----------- | ---------- | ----------------------- | --------- |
-| s | Sum | Int | Cumulative | true |
+| {values} | Sum | Int | Cumulative | true |
 
 ## Resource Attributes
 

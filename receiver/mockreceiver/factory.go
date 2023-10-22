@@ -14,7 +14,7 @@ import (
 	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/mockreceiver/internal/metadata"
 )
 
-// NewFactory creates a factory for apache receiver.
+// NewFactory creates a factory for mock receiver.
 func NewFactory() receiver.Factory {
 	return receiver.NewFactory(
 		metadata.Type,
@@ -28,6 +28,9 @@ func createDefaultConfig() component.Config {
 	return &Config{
 		ScraperControllerSettings: cfg,
 		MetricsBuilderConfig:      metadata.DefaultMetricsBuilderConfig(),
+		MockReceiverConfig: MockReceiverConfig{
+			MockValue: "",
+		},
 	}
 }
 
@@ -39,7 +42,7 @@ func createMetricsReceiver(
 ) (receiver.Metrics, error) {
 	cfg := rConf.(*Config)
 
-	ns := newMockGenerator(params, cfg)
+	ns := newMockGenerator(params, cfg, cfg.MockValue)
 	scraper, err := scraperhelper.NewScraper(metadata.Type, ns.scrape, scraperhelper.WithStart(ns.start))
 	if err != nil {
 		return nil, err

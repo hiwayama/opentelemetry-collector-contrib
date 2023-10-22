@@ -8,7 +8,11 @@ status:
   codeowners:
     active: [hiwayama]
 
-attributes:
+resource_attributes:
+  mock.value:
+    description: A value to set as a mock
+    type: string
+    enabled: true
 
 metrics:
   value:

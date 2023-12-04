@@ -11,6 +11,7 @@ import (
 	corev1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/api/resource"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/types"
 )
 
@@ -394,6 +395,30 @@ func NewCronJob(id string) *batchv1.CronJob {
 		},
 		Status: batchv1.CronJobStatus{
 			Active: []corev1.ObjectReference{{}, {}},
+		},
+	}
+}
+
+func NewHierarchicalResourceQuota(id string) *unstructured.Unstructured {
+	return &unstructured.Unstructured{
+		Object: map[string]interface{}{
+			"metadata": map[string]interface{}{
+				"name":      "test-hierarchicalresourcequota-" + id,
+				"uid":       types.UID("test-resourcequota-" + id + "-uid"),
+				"namespace": "test-namespace",
+				"labels": map[string]string{
+					"foo":  "bar",
+					"foo1": "",
+				},
+			},
+			"status": map[string]interface{}{
+				"hard": map[string]interface{}{
+					"requests.cpu": "2",
+				},
+				"used": map[string]interface{}{
+					"requests.cpu": "1",
+				},
+			},
 		},
 	}
 }
